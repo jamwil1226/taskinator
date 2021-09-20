@@ -125,6 +125,7 @@ var completeEditTask = function(taskName, taskType, taskId) {
 
   alert("Task Updated!");
 
+<<<<<<< HEAD
   // remove data attribute from form
   formEl.removeAttribute("data-task-id");
   // update formEl button to go back to saying "Add Task" instead of "Edit Task"
@@ -252,3 +253,46 @@ pageContentEl.addEventListener("click", taskButtonHandler);
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 
 loadTasks();
+
+var taskFormHandler = function(event) {
+    event.preventDefault();
+    var taskNameInput = document.querySelector("input[name='task-name']").value;
+    var taskTypeInput = document.querySelector("select[name='task-type']").value;
+    console.log(taskNameInput);
+
+    // check if input values are empty strings
+    if (!taskNameInput || !taskTypeInput) {
+        alert("You need to fill out the task form!");
+        return false;
+    }
+
+    formEl.reset();
+
+    //package up data as an object
+    var taskDataObj = {
+        name: taskNameInput, 
+        type: taskTypeInput
+    };
+
+    // send it as an argument to createTaskEl
+    createTaskEl(taskDataObj);
+}
+
+var createTaskEl = function(taskDataObj) {
+      // create list item
+      var listItemEl = document.createElement("li");
+      listItemEl.className = "task-item";
+  
+      //create div to hold task info and add to list item
+      var taskInfoEl = document.createElement ("div");
+      taskInfoEl.className = "task-info";  
+      //add HTML content to div
+      taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
+      listItemEl.appendChild(taskInfoEl);
+  
+      // add entire list item to list
+      tasksToDoEl.appendChild(listItemEl);
+};
+
+formEl.addEventListener("submit", taskFormHandler); 
+>>>>>>> 6722b468f8fcd91f0c2b3bd22a9454bb80bc7457
